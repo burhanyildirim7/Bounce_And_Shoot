@@ -11,6 +11,19 @@ TagManager:
   - finish
   - collectible
   - elmas
+  - DegersizEsya
+  - Missile
+  - ENGEL
+  - Ball
+  - plane
+  - duvar
+  - targetpoint
+  - startingpoint
+  - firstmovepoint
+  - secondmovepoint
+  - thirdmovepoint
+  - obstacle
+  - yansitici
   layers:
   - Default
   - TransparentFX
@@ -18,7 +31,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - projectile
   - 
   - 
   - 

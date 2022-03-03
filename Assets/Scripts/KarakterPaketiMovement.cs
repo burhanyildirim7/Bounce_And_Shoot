@@ -12,17 +12,17 @@ public class KarakterPaketiMovement : MonoBehaviour
     }
 
 
-    void FixedUpdate()
-    {
-        if (GameController.instance.isContinue == true)
-        {
-            transform.Translate(Vector3.forward * Time.deltaTime * _speed);
-        }
-        else
-        {
+    //void FixedUpdate()
+    //{
+    //    if (GameController.instance.isContinue == true)
+    //    {
+    //        transform.Translate(Vector3.forward * Time.deltaTime * _speed);
+    //    }
+    //    else
+    //    {
 
-        }
+    //    }
         
-    }
+    //}
 
 }

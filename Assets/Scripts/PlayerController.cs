@@ -10,6 +10,12 @@ public class PlayerController : MonoBehaviour
     public int collectibleDegeri;
     public bool xVarMi = true;
     public bool collectibleVarMi = true;
+    public GameObject weapon;
+    public bool isRun;
+    public float playerSpeed = 10;
+    [HideInInspector] public Transform targetPoint1, targetPoint2, firstMovePoint, secondMovePoint, thirdMovePoint;
+    private int shootNo = 0;
+    public int movementNo = 1;
 
 
     private void Awake()
@@ -20,15 +26,41 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        weapon.SetActive(false);
         StartingEvents();
+        
     }
 
-    /// <summary>
-    /// Playerin collider olaylari.. collectible, engel veya finish noktasi icin. Burasi artirilabilir.
-    /// elmas icin veya baska herhangi etkilesimler icin tag ekleyerek kontrol dongusune eklenir.
-    /// </summary>
-    /// <param name="other"></param>
-    private void OnTriggerEnter(Collider other)
+	private void FixedUpdate()
+	{
+        if (isRun) 
+        {
+            if(movementNo == 1)
+            transform.position = Vector3.MoveTowards(
+                  transform.position, new Vector3(firstMovePoint.position.x, transform.position.y, firstMovePoint.position.z), playerSpeed);
+            else if (movementNo == 2)
+                transform.position = Vector3.MoveTowards(
+                      transform.position, new Vector3(secondMovePoint.position.x, transform.position.y, secondMovePoint.position.z), playerSpeed);
+            else if (movementNo == 3)
+                transform.position = Vector3.MoveTowards(
+                      transform.position, new Vector3(thirdMovePoint.position.x, transform.position.y, thirdMovePoint.position.z), playerSpeed);
+        }
+       
+    }
+
+    public void IncreaseMovementNo()
+	{
+        weapon.SetActive(false);
+        movementNo++;
+        isRun = true;
+	}
+
+	/// <summary>
+	/// Playerin collider olaylari.. collectible, engel veya finish noktasi icin. Burasi artirilabilir.
+	/// elmas icin veya baska herhangi etkilesimler icin tag ekleyerek kontrol dongusune eklenir.
+	/// </summary>
+	/// <param name="other"></param>
+	private void OnTriggerEnter(Collider other)
     {
 
         if (other.CompareTag("collectible"))
@@ -48,8 +80,6 @@ public class PlayerController : MonoBehaviour
                 UIController.instance.ActivateLooseScreen(); // Bu fonksiyon direk çağrılada bilir veya herhangi bir effect veya animasyon bitiminde de çağrılabilir..
                 // oyuncu fail durumunda bu fonksiyon çağrılacak.. 
 			}
-
-
         }
         else if (other.CompareTag("finish")) 
         {
@@ -59,8 +89,19 @@ public class PlayerController : MonoBehaviour
             GameController.instance.ScoreCarp(7);  // Bu fonksiyon normalde x ler hesaplandıktan sonra çağrılacak. Parametre olarak x i alıyor. 
             // x değerine göre oyuncunun total scoreunu hesaplıyor.. x li olmayan oyunlarda parametre olarak 1 gönderilecek.
             UIController.instance.ActivateWinScreen(); // finish noktasına gelebildiyse her türlü win screen aktif edilecek.. ama burada değil..
-            // normal de bu kodu x ler hesaplandıktan sonra çağıracağız. Ve bu kod çağrıldığında da kazanılan puanlar animasyonlu şekilde artacak..
-
+            // normal de bu kodu x ler hesaplandıktan sonra çağıracağız. Ve bu kod çağrıldığında da kazanılan puanlar animasyonlu şekilde artacak..          
+        }
+        else if (other.CompareTag("firstmovepoint") )
+		{
+            Destroy(other.gameObject);
+            shootNo = 1;
+            ShootingTime();
+		}
+        else if (other.CompareTag("secondmovepoint"))
+        {
+            Destroy(other.gameObject);
+            shootNo = 2;
+            ShootingTime();
             
         }
 
@@ -72,7 +113,7 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     public void StartingEvents()
     {
-
+        isRun = true;
         transform.parent.transform.rotation = Quaternion.Euler(0, 0, 0);
         transform.parent.transform.position = Vector3.zero;
         GameController.instance.isContinue = false;
@@ -80,6 +121,17 @@ public class PlayerController : MonoBehaviour
         transform.position = new Vector3(0, transform.position.y, 0);
         GetComponent<Collider>().enabled = true;
 
+    }
+
+
+    void ShootingTime()
+	{
+        isRun = false;
+        weapon.SetActive(true);
+        Vector3 direction = Vector3.forward;
+        if(shootNo == 1) direction = (targetPoint1.position - weapon.transform.position).normalized;
+        else if(shootNo == 2) direction = (targetPoint2.position - weapon.transform.position).normalized;
+        weapon.transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
     }
 
 }

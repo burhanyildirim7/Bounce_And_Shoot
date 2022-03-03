@@ -11,6 +11,7 @@ public class GameController : MonoBehaviour
 
     [HideInInspector] public bool isContinue;  // ayrintilar icin beni oku 19. satirdan itibaren bak
 
+   
 
 	private void Awake()
 	{

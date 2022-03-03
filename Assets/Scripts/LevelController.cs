@@ -9,6 +9,7 @@ public class LevelController : MonoBehaviour
 	public int levelNo, tempLevelNo, totalLevelNo; // totallevelno tum leveller bitip random level gelmeye baslayinca kullaniliyor
 	public List<GameObject> levels = new List<GameObject>();
 	private GameObject currentLevelObj;
+	public GameObject DuvarParent;
 
 	private void Awake()
 	{
@@ -58,7 +59,17 @@ public class LevelController : MonoBehaviour
 		UIController.instance.SetLevelText(totalLevelNo);
 		currentLevelObj = Instantiate(levels[levelNo - 1], Vector3.zero, Quaternion.identity);
 		Elephant.LevelStarted(totalLevelNo);
-
+		PlayerController.instance.targetPoint1 = GameObject.Find("TargetPoint1").transform;
+		PlayerController.instance.targetPoint2 = GameObject.Find("TargetPoint2").transform;
+		PlayerController.instance.firstMovePoint = GameObject.Find("FirstMovePoint").transform;
+		PlayerController.instance.secondMovePoint = GameObject.Find("SecondMovePoint").transform;
+		PlayerController.instance.thirdMovePoint = GameObject.Find("ThirdMovePoint").transform;
+		GameObject[] obstacles = GameObject.FindGameObjectsWithTag("yansitici");
+		Projection.instance.CreatePhysicsScene();
+		foreach (GameObject obs in obstacles)
+		{
+			Projection.instance.AddGhostToScene(obs.transform);
+		}
 	}
 
 	/// <summary>
