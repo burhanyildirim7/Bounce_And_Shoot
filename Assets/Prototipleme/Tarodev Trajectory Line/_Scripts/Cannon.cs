@@ -1,10 +1,17 @@
 using UnityEngine;
 
 public class Cannon : MonoBehaviour {
+
+    public static Cannon instance;
     [SerializeField] private Projection _projection;
 
-    private void Update() {
-        HandleControls();
+
+	private void Awake()
+	{
+        if (instance == null) instance = this;
+        else Destroy(this);
+	}
+	private void Update() {
         _projection.SimulateTrajectory(_ballPrefab, _ballSpawn.position, _ballSpawn.forward * _force);
     }
 
@@ -25,6 +32,13 @@ public class Cannon : MonoBehaviour {
             var spawned = Instantiate(_ballPrefab, _ballSpawn.position, _ballSpawn.rotation);
             spawned.Init(_ballSpawn.forward * _force, false);
         }
+    }
+
+    public void Fire()
+	{
+        var spawned = Instantiate(_ballPrefab, _ballSpawn.position, _ballSpawn.rotation);
+        spawned.Init(_ballSpawn.forward * _force, false);
+
     }
 
     #endregion

@@ -10,6 +10,7 @@ public class UIController : MonoBehaviour
 	public GameObject TapToStartPanel, LoosePanel, GamePanel, WinPanel,winScreenEffectObject, winScreenCoinImage,startScreenCoinImage,scoreEffect;
 	public Text gamePlayScoreText, winScreenScoreText, levelNoText, tapToStartScoreText, totalElmasText;
 	public Animator ScoreTextAnim;
+	public Image bullet1Image, bullet2Image, bullet3Image;
 
 
 
@@ -43,7 +44,7 @@ public class UIController : MonoBehaviour
 	// TAPTOSTART TUSUNA BASILDISINDA  --- GIRIS EKRANINDA VE LEVEL BASLARINDA
 	public void TapToStartButtonClick()
 	{
-		PlayerController.instance.PlayerAnimator.SetTrigger("run");
+		PlayerController.instance.PlayerRunAnim();
 		PlayerController.instance.isRun = true;
 		GameController.instance.isContinue = true;
 		//PlayerController.instance.SetArmForGaming();
@@ -51,6 +52,7 @@ public class UIController : MonoBehaviour
 		GamePanel.SetActive(true);
 		SetLevelText(LevelController.instance.totalLevelNo);
 		SetGamePlayScoreText();
+		SetBulletImages();
 
 	}
 
@@ -121,6 +123,7 @@ public class UIController : MonoBehaviour
 
 	IEnumerator WinScreenDelay()
 	{
+		yield return new WaitForSeconds(3f);
 		WinPanel.SetActive(true);
 		winScreenScoreText.text = "0";
 		int sayac = 0;
@@ -225,6 +228,34 @@ public class UIController : MonoBehaviour
 		LoosePanel.SetActive(false);
 		GamePanel.SetActive(false);
 		tapToStartScoreText.text = PlayerPrefs.GetInt("total").ToString();
+	}
+
+	public void SetBulletImages()
+	{
+		if(PlayerController.instance.bulletCount == 3)
+		{
+			bullet1Image.gameObject.SetActive(true);
+			bullet2Image.gameObject.SetActive(true);
+			bullet3Image.gameObject.SetActive(true);
+		}
+		else if(PlayerController.instance.bulletCount == 2)
+		{
+			bullet1Image.gameObject.SetActive(true);
+			bullet2Image.gameObject.SetActive(true);
+			bullet3Image.gameObject.SetActive(false);
+		}
+		else if (PlayerController.instance.bulletCount == 1)
+		{
+			bullet1Image.gameObject.SetActive(true);
+			bullet2Image.gameObject.SetActive(false);
+			bullet3Image.gameObject.SetActive(false);
+		}
+		else if (PlayerController.instance.bulletCount == 0)
+		{
+			bullet1Image.gameObject.SetActive(false);
+			bullet2Image.gameObject.SetActive(false);
+			bullet3Image.gameObject.SetActive(false);
+		}
 	}
 
 	

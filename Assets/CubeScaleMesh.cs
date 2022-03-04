@@ -23,7 +23,8 @@ public class CubeScaleMesh : MonoBehaviour
 				if (hit.transform.CompareTag("plane"))
 				{
 					firstPoint = lastPoint = hit.point;
-					//transform.GetComponentInChildren<Collider>().enabled = true;
+					scalebleCube.GetComponentInChildren<MeshRenderer>().enabled = true;
+					scalebleCube.GetComponentInChildren<Collider>().enabled = true;
 					scalebleCube.transform.position = firstPoint;
 				}
 			}
@@ -55,10 +56,12 @@ public class CubeScaleMesh : MonoBehaviour
 				}
 			}
 		}
-
-		if(Input.GetMouseButtonUp(0))
+		if(Input.GetMouseButtonUp(0) && PlayerController.instance.isShootingTime)
 		{
-
+			PlayerController.instance.bulletCount--;
+			UIController.instance.SetBulletImages();
+			if (PlayerController.instance.bulletCount == 0) PlayerController.instance.LooseEvents();
+			Cannon.instance.Fire();
 		}
 	}
 }

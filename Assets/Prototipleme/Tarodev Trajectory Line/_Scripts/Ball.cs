@@ -17,8 +17,8 @@ public class Ball : MonoBehaviour {
         Instantiate(_poofPrefab, col.contacts[0].point, Quaternion.Euler(col.contacts[0].normal));
         if (col.transform.CompareTag("duvar"))
         {
-            col.transform.GetComponent<MeshFilter>().mesh.Clear();
-            col.transform.GetComponent<Collider>().enabled = false;
+            col.transform.GetComponentInChildren<MeshRenderer>().enabled = false;
+            col.transform.GetComponentInChildren<Collider>().enabled = false;
         }
         //_source.clip = _clips[Random.Range(0, _clips.Length)];
         //_source.Play();

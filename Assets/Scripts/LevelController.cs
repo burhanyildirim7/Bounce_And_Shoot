@@ -63,7 +63,6 @@ public class LevelController : MonoBehaviour
 		PlayerController.instance.targetPoint2 = GameObject.Find("TargetPoint2").transform;
 		PlayerController.instance.firstMovePoint = GameObject.Find("FirstMovePoint").transform;
 		PlayerController.instance.secondMovePoint = GameObject.Find("SecondMovePoint").transform;
-		PlayerController.instance.thirdMovePoint = GameObject.Find("ThirdMovePoint").transform;
 		GameObject[] obstacles = GameObject.FindGameObjectsWithTag("yansitici");
 		Projection.instance.CreatePhysicsScene();
 		foreach (GameObject obs in obstacles)

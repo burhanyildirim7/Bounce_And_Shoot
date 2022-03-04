@@ -11,12 +11,13 @@ public class PlayerController : MonoBehaviour
     public bool xVarMi = true;
     public bool collectibleVarMi = true;
     public GameObject weapon;
-    public bool isRun;
+    public bool isRun,isShootingTime;
     public float playerSpeed = 10;
-    [HideInInspector] public Transform targetPoint1, targetPoint2, firstMovePoint, secondMovePoint, thirdMovePoint;
+    [HideInInspector] public Transform targetPoint1, targetPoint2, firstMovePoint, secondMovePoint;
     private int shootNo = 0;
     public int movementNo = 1;
     public Animator PlayerAnimator;
+    public int bulletCount = 3;
 
 
     private void Awake()
@@ -42,18 +43,22 @@ public class PlayerController : MonoBehaviour
             else if (movementNo == 2)
                 transform.position = Vector3.MoveTowards(
                       transform.position, new Vector3(secondMovePoint.position.x, transform.position.y, secondMovePoint.position.z), playerSpeed);
-            else if (movementNo == 3)
-                transform.position = Vector3.MoveTowards(
-                      transform.position, new Vector3(thirdMovePoint.position.x, transform.position.y, thirdMovePoint.position.z), playerSpeed);
         }
        
     }
 
     public void IncreaseMovementNo()
 	{
+        if(movementNo == 2)
+		{
+            WinEvents();
+            return;
+		}
         weapon.SetActive(false);
         movementNo++;
         isRun = true;
+        isShootingTime = false;
+        PlayerRunAnim();
 	}
 
 	/// <summary>
@@ -115,25 +120,78 @@ public class PlayerController : MonoBehaviour
     public void StartingEvents()
     {
         isRun = false;
+        isShootingTime = false;
         transform.parent.transform.rotation = Quaternion.Euler(0, 0, 0);
         transform.parent.transform.position = Vector3.zero;
         GameController.instance.isContinue = false;
         GameController.instance.score = 0;
         transform.position = new Vector3(0, transform.position.y, 0);
         GetComponent<Collider>().enabled = true;
-        PlayerAnimator.SetTrigger("idle");
+        PlayerIdleAnim();
+
     }
 
+
+    public void WinEvents()
+	{
+        weapon.SetActive(false);
+        isRun = false;
+        PlayerWinAnim();
+        UIController.instance.ActivateWinScreen();
+    }
+
+    public void LooseEvents()
+	{
+        UIController.instance.ActivateLooseScreen();
+	}
 
     void ShootingTime()
 	{
         isRun = false;
+        isShootingTime = true;
         weapon.SetActive(true);
         Vector3 direction = Vector3.forward;
         if(shootNo == 1) direction = (targetPoint1.position - weapon.transform.position).normalized;
         else if(shootNo == 2) direction = (targetPoint2.position - weapon.transform.position).normalized;
         weapon.transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
+        PlayerIdleAnim();
+    }
+
+
+	#region ANIMATION
+	public void PlayerRunAnim()
+	{
+        ResetTriggers();
+        PlayerAnimator.SetTrigger("run");
+	}
+
+    public void PlayerIdleAnim()
+	{
+        ResetTriggers();
         PlayerAnimator.SetTrigger("idle");
     }
+
+    public void PlayerWinAnim()
+	{
+        ResetTriggers();
+        PlayerAnimator.SetTrigger("win");
+    }
+
+    public void PlayerLooseAnim()
+	{
+        ResetTriggers();
+        PlayerAnimator.SetTrigger("loose");
+	}
+
+    public void ResetTriggers()
+	{
+        PlayerAnimator.ResetTrigger("idle");
+        PlayerAnimator.ResetTrigger("run");
+        PlayerAnimator.ResetTrigger("loose");
+        PlayerAnimator.ResetTrigger("win");
+	}
+
+
+    #endregion 
 
 }

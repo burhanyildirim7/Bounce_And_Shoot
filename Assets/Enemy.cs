@@ -9,7 +9,7 @@ public class Enemy : MonoBehaviour
 		if (other.CompareTag("Ball")) 
 		{
 			Debug.Log("yandýmanam..");
-			Destroy(gameObject);
+			GetComponentInChildren<Animator>().SetTrigger("die");
 			PlayerController.instance.IncreaseMovementNo();
 		}
 		
