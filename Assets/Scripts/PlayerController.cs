@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public Transform targetPoint1, targetPoint2, firstMovePoint, secondMovePoint, thirdMovePoint;
     private int shootNo = 0;
     public int movementNo = 1;
+    public Animator PlayerAnimator;
 
 
     private void Awake()
@@ -113,14 +114,14 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     public void StartingEvents()
     {
-        isRun = true;
+        isRun = false;
         transform.parent.transform.rotation = Quaternion.Euler(0, 0, 0);
         transform.parent.transform.position = Vector3.zero;
         GameController.instance.isContinue = false;
         GameController.instance.score = 0;
         transform.position = new Vector3(0, transform.position.y, 0);
         GetComponent<Collider>().enabled = true;
-
+        PlayerAnimator.SetTrigger("idle");
     }
 
 
@@ -132,6 +133,7 @@ public class PlayerController : MonoBehaviour
         if(shootNo == 1) direction = (targetPoint1.position - weapon.transform.position).normalized;
         else if(shootNo == 2) direction = (targetPoint2.position - weapon.transform.position).normalized;
         weapon.transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
+        PlayerAnimator.SetTrigger("idle");
     }
 
 }

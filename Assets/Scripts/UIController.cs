@@ -43,7 +43,8 @@ public class UIController : MonoBehaviour
 	// TAPTOSTART TUSUNA BASILDISINDA  --- GIRIS EKRANINDA VE LEVEL BASLARINDA
 	public void TapToStartButtonClick()
 	{
-
+		PlayerController.instance.PlayerAnimator.SetTrigger("run");
+		PlayerController.instance.isRun = true;
 		GameController.instance.isContinue = true;
 		//PlayerController.instance.SetArmForGaming();
 		TapToStartPanel.SetActive(false);
