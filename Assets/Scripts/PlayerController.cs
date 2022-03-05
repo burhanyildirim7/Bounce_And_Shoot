@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Animations;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
@@ -13,11 +14,12 @@ public class PlayerController : MonoBehaviour
     public GameObject weapon;
     public bool isRun,isShootingTime;
     public float playerSpeed = 10;
-    [HideInInspector] public Transform targetPoint1, targetPoint2, firstMovePoint, secondMovePoint;
+     public Transform targetPoint1, targetPoint2, firstMovePoint, secondMovePoint;
     private int shootNo = 0;
     public int movementNo = 1;
     public Animator PlayerAnimator;
     public int bulletCount = 3;
+    public int enemyCount;
 
 
     private void Awake()
@@ -28,7 +30,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        weapon.SetActive(false);
+        weapon.GetComponent<LineRenderer>().enabled = false;
         StartingEvents();
         
     }
@@ -49,12 +51,17 @@ public class PlayerController : MonoBehaviour
 
     public void IncreaseMovementNo()
 	{
+        GameController.instance.SetScore(50);
+        bulletCount++;
+        UIController.instance.SetBulletImages();
+        enemyCount--;
         if(movementNo == 2)
 		{
             WinEvents();
             return;
 		}
-        weapon.SetActive(false);
+        //weapon.SetActive(false);
+        weapon.GetComponent<LineRenderer>().enabled = false;
         movementNo++;
         isRun = true;
         isShootingTime = false;
@@ -119,6 +126,10 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     public void StartingEvents()
     {
+        movementNo = 1;
+        shootNo = 1;
+        bulletCount = 3;
+        UIController.instance.SetBulletImages();
         isRun = false;
         isShootingTime = false;
         transform.parent.transform.rotation = Quaternion.Euler(0, 0, 0);
@@ -134,22 +145,39 @@ public class PlayerController : MonoBehaviour
 
     public void WinEvents()
 	{
-        weapon.SetActive(false);
+        GameController.instance.ScoreCarp(bulletCount + 1);
+        Projection.instance.ClearForNewScene();
+        //weapon.SetActive(false);
+        weapon.GetComponent<LineRenderer>().enabled = false;
         isRun = false;
         PlayerWinAnim();
         UIController.instance.ActivateWinScreen();
     }
 
+    public IEnumerator CheckForLoose()
+	{
+        yield return new WaitForSeconds(2);
+        if (bulletCount == 0 && enemyCount > 0) LooseEvents();
+	}
+
     public void LooseEvents()
 	{
+        PlayerLooseAnim();
+        Projection.instance.ClearForNewScene();
+        //weapon.SetActive(false);
+        weapon.GetComponent<LineRenderer>().enabled = false;
+        isRun = false;
         UIController.instance.ActivateLooseScreen();
+        Destroy(GameObject.Find("Simulation"));
 	}
 
     void ShootingTime()
 	{
+      
+        //weapon.SetActive(true);
+        weapon.GetComponent<LineRenderer>().enabled = true;
         isRun = false;
         isShootingTime = true;
-        weapon.SetActive(true);
         Vector3 direction = Vector3.forward;
         if(shootNo == 1) direction = (targetPoint1.position - weapon.transform.position).normalized;
         else if(shootNo == 2) direction = (targetPoint2.position - weapon.transform.position).normalized;
@@ -157,6 +185,26 @@ public class PlayerController : MonoBehaviour
         PlayerIdleAnim();
     }
 
+
+    public IEnumerator FindPoints()
+	{
+        yield return new WaitForSeconds(.5f);
+        targetPoint1 = GameObject.Find("TargetPoint1").transform;
+        targetPoint2 = GameObject.Find("TargetPoint2").transform;
+        firstMovePoint = GameObject.Find("FirstMovePoint").transform;
+        secondMovePoint = GameObject.Find("SecondMovePoint").transform;
+        GameObject[] obstacles = GameObject.FindGameObjectsWithTag("yansitici");
+
+		foreach (GameObject obs in obstacles)
+		{
+			Debug.Log("eklendi");
+			Projection.instance.AddGhostToScene(obs.transform);
+		}
+        GameObject duvar = GameObject.Find("Duvar");
+        Projection.instance.AddGhostToScene(duvar.transform);
+		//if(totalLevelNo > 1)Projection.instance.AddMeshCubeToScene();
+		//if (LevelController.instance.totalLevelNo > 1) Projection.instance.LoadPhysicScene();
+    }
 
 	#region ANIMATION
 	public void PlayerRunAnim()

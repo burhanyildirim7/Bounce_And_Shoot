@@ -23,6 +23,7 @@ public class CubeScaleMesh : MonoBehaviour
 				if (hit.transform.CompareTag("plane"))
 				{
 					firstPoint = lastPoint = hit.point;
+					Projection.instance.ActivateGhostDuvar();
 					scalebleCube.GetComponentInChildren<MeshRenderer>().enabled = true;
 					scalebleCube.GetComponentInChildren<Collider>().enabled = true;
 					scalebleCube.transform.position = firstPoint;
@@ -60,7 +61,7 @@ public class CubeScaleMesh : MonoBehaviour
 		{
 			PlayerController.instance.bulletCount--;
 			UIController.instance.SetBulletImages();
-			if (PlayerController.instance.bulletCount == 0) PlayerController.instance.LooseEvents();
+			if (PlayerController.instance.bulletCount == 0) StartCoroutine(PlayerController.instance.CheckForLoose());
 			Cannon.instance.Fire();
 		}
 	}

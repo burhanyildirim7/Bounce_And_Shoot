@@ -10,6 +10,7 @@ public class LevelController : MonoBehaviour
 	public List<GameObject> levels = new List<GameObject>();
 	private GameObject currentLevelObj;
 	public GameObject DuvarParent;
+	public List<int> enemyCountsForLevel = new List<int>();
 
 	private void Awake()
 	{
@@ -56,19 +57,12 @@ public class LevelController : MonoBehaviour
 		{
 			levelNo = totalLevelNo;
 		}
+		PlayerController.instance.enemyCount = enemyCountsForLevel[levelNo-1];
 		UIController.instance.SetLevelText(totalLevelNo);
 		currentLevelObj = Instantiate(levels[levelNo - 1], Vector3.zero, Quaternion.identity);
 		Elephant.LevelStarted(totalLevelNo);
-		PlayerController.instance.targetPoint1 = GameObject.Find("TargetPoint1").transform;
-		PlayerController.instance.targetPoint2 = GameObject.Find("TargetPoint2").transform;
-		PlayerController.instance.firstMovePoint = GameObject.Find("FirstMovePoint").transform;
-		PlayerController.instance.secondMovePoint = GameObject.Find("SecondMovePoint").transform;
-		GameObject[] obstacles = GameObject.FindGameObjectsWithTag("yansitici");
-		Projection.instance.CreatePhysicsScene();
-		foreach (GameObject obs in obstacles)
-		{
-			Projection.instance.AddGhostToScene(obs.transform);
-		}
+
+		StartCoroutine(PlayerController.instance.FindPoints());
 	}
 
 	/// <summary>
@@ -88,9 +82,12 @@ public class LevelController : MonoBehaviour
 	/// </summary>
 	public void RestartLevelEvents()
 	{
+		
 		Elephant.LevelFailed(totalLevelNo);
 		PlayerController.instance.StartingEvents();
 		Destroy(currentLevelObj);
 		LevelStartingEvents();
 	}
+
+	
 }

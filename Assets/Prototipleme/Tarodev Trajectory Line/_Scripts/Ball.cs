@@ -1,13 +1,18 @@
 using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 
 public class Ball : MonoBehaviour {
     [SerializeField] private Rigidbody _rb;
-    //[SerializeField] private AudioSource _source;
-    //[SerializeField] private AudioClip[] _clips;
     [SerializeField] private GameObject _poofPrefab;
     private bool _isGhost;
 
-    public void Init(Vector3 velocity, bool isGhost) {
+	private void Start()
+	{
+        StartCoroutine(DestroyMe());
+	}
+
+	public void Init(Vector3 velocity, bool isGhost) {
         _isGhost = isGhost;
         _rb.AddForce(velocity, ForceMode.Impulse);
     }
@@ -19,8 +24,14 @@ public class Ball : MonoBehaviour {
         {
             col.transform.GetComponentInChildren<MeshRenderer>().enabled = false;
             col.transform.GetComponentInChildren<Collider>().enabled = false;
+            Projection.instance.DeactivateGhostDuvar();
         }
-        //_source.clip = _clips[Random.Range(0, _clips.Length)];
-        //_source.Play();
     }
+
+    IEnumerator DestroyMe()
+	{
+        yield return new WaitForSeconds(5f);
+        if(!_isGhost)Destroy(gameObject);
+	}
+    
 }
