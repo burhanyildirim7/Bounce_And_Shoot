@@ -44,8 +44,7 @@ public class Projection : MonoBehaviour {
         ghostObj2.GetComponent<Collider>().enabled = true;
 		SceneManager.MoveGameObjectToScene(ghostObj2, _simulationScene);
 		if (!ghostObj2.isStatic) _spawnedObjects.Add(obj2, ghostObj2.transform);
-       
-        Debug.Log(_spawnedObjects.Count);
+
 	}
 
     public void AddMeshCubeToScene()

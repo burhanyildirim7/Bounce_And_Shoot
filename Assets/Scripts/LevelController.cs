@@ -81,8 +81,7 @@ public class LevelController : MonoBehaviour
 	/// Bu fonksiyon RestartLevel butonuna basildiginda tetiklenir. UIControlden tetikleniyor.
 	/// </summary>
 	public void RestartLevelEvents()
-	{
-		
+	{		
 		Elephant.LevelFailed(totalLevelNo);
 		PlayerController.instance.StartingEvents();
 		Destroy(currentLevelObj);

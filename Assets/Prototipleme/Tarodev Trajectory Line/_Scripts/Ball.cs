@@ -18,7 +18,10 @@ public class Ball : MonoBehaviour {
     }
 
     public void OnCollisionEnter(Collision col) {
-        if (_isGhost) return;
+        if (_isGhost ) {
+            Debug.Log(col.transform.tag);
+            return; 
+        }
         Instantiate(_poofPrefab, col.contacts[0].point, Quaternion.Euler(col.contacts[0].normal));
         if (col.transform.CompareTag("duvar"))
         {
@@ -27,6 +30,12 @@ public class Ball : MonoBehaviour {
             Projection.instance.DeactivateGhostDuvar();
         }
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log(other.transform.tag);
+    }
+
 
     IEnumerator DestroyMe()
 	{

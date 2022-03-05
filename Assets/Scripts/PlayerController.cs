@@ -55,7 +55,8 @@ public class PlayerController : MonoBehaviour
         bulletCount++;
         UIController.instance.SetBulletImages();
         enemyCount--;
-        if(movementNo == 2)
+
+        if(movementNo == 2 || enemyCount == 0)
 		{
             WinEvents();
             return;
@@ -104,13 +105,13 @@ public class PlayerController : MonoBehaviour
             UIController.instance.ActivateWinScreen(); // finish noktasına gelebildiyse her türlü win screen aktif edilecek.. ama burada değil..
             // normal de bu kodu x ler hesaplandıktan sonra çağıracağız. Ve bu kod çağrıldığında da kazanılan puanlar animasyonlu şekilde artacak..          
         }
-        else if (other.CompareTag("firstmovepoint") )
+        else if (other.CompareTag("firstmovepoint") && isRun )
 		{
             Destroy(other.gameObject);
             shootNo = 1;
             ShootingTime();
 		}
-        else if (other.CompareTag("secondmovepoint"))
+        else if (other.CompareTag("secondmovepoint") && isRun)
         {
             Destroy(other.gameObject);
             shootNo = 2;
@@ -150,6 +151,7 @@ public class PlayerController : MonoBehaviour
         //weapon.SetActive(false);
         weapon.GetComponent<LineRenderer>().enabled = false;
         isRun = false;
+        isShootingTime = false;
         PlayerWinAnim();
         UIController.instance.ActivateWinScreen();
     }
@@ -190,14 +192,13 @@ public class PlayerController : MonoBehaviour
 	{
         yield return new WaitForSeconds(.5f);
         targetPoint1 = GameObject.Find("TargetPoint1").transform;
-        targetPoint2 = GameObject.Find("TargetPoint2").transform;
+        if(enemyCount == 2)targetPoint2 = GameObject.Find("TargetPoint2").transform;
         firstMovePoint = GameObject.Find("FirstMovePoint").transform;
         secondMovePoint = GameObject.Find("SecondMovePoint").transform;
         GameObject[] obstacles = GameObject.FindGameObjectsWithTag("yansitici");
 
 		foreach (GameObject obs in obstacles)
 		{
-			Debug.Log("eklendi");
 			Projection.instance.AddGhostToScene(obs.transform);
 		}
         GameObject duvar = GameObject.Find("Duvar");

@@ -1085,10 +1085,10 @@ MonoBehaviour:
   tempLevelNo: 0
   totalLevelNo: 0
   levels:
-  - {fileID: 2326151854888573912, guid: ab3fdb45381358a42bbb5b36e3904ecb, type: 3}
+  - {fileID: 2326151854888573912, guid: 84585b010e6233644a243b378b7aad18, type: 3}
   - {fileID: 2326151854888573912, guid: ab3fdb45381358a42bbb5b36e3904ecb, type: 3}
   DuvarParent: {fileID: 680819996}
-  enemyCountsForLevel: 020000000200000002000000
+  enemyCountsForLevel: 0100000002000000
 --- !u!1 &664173345876672193
 GameObject:
   m_ObjectHideFlags: 0
@@ -2288,10 +2288,10 @@ RectTransform:
   m_Father: {fileID: 2037673478225531756}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1170, y: 2532}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2037673476872492156
 GameObject:
@@ -3202,11 +3202,11 @@ RectTransform:
   m_Father: {fileID: 2037673476851357705}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -605}
+  m_AnchorMin: {x: 0.5, y: 0.26113433}
+  m_AnchorMax: {x: 0.5, y: 0.26113433}
+  m_AnchoredPosition: {x: 0.0000019073486, y: -1}
   m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0.5000003, y: 0.5}
 --- !u!114 &2037673477802928436
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3725,7 +3725,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2037673478094028005
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4041,7 +4041,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &2070661309882696310
 GameObject:
   m_ObjectHideFlags: 0
