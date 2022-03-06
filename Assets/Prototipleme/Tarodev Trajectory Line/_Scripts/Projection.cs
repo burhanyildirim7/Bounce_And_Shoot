@@ -10,7 +10,7 @@ public class Projection : MonoBehaviour {
     [SerializeField] private int _maxPhysicsFrameIterations = 100;
     [SerializeField] private Transform _obstaclesParent;
 
-    private Scene _simulationScene;
+    public Scene _simulationScene;
     public PhysicsScene _physicsScene;
     public  Dictionary<Transform, Transform> _spawnedObjects = new Dictionary<Transform, Transform>();
 
@@ -41,6 +41,7 @@ public class Projection : MonoBehaviour {
 	{
         var ghostObj2 = Instantiate(obj2.gameObject, obj2.position, obj2.rotation);
 		ghostObj2.GetComponentInChildren<Renderer>().enabled = false;
+        if (ghostObj2.CompareTag("engel")) ghostObj2.transform.GetChild(0).GetComponentInChildren<Renderer>().enabled = false;
         ghostObj2.GetComponent<Collider>().enabled = true;
 		SceneManager.MoveGameObjectToScene(ghostObj2, _simulationScene);
 		if (!ghostObj2.isStatic) _spawnedObjects.Add(obj2, ghostObj2.transform);
@@ -72,11 +73,12 @@ public class Projection : MonoBehaviour {
 		{
             foreach (var item in _spawnedObjects)
             {
-                if (item.Value == null) Debug.Log("value");
-                if(item.Key == null) Debug.Log("key");
-                item.Value.position = item.Key.position;
-                item.Value.rotation = item.Key.rotation;
-                if (!item.Key.CompareTag("yansitici")) item.Value.localScale = item.Key.parent.localScale;
+                if(item.Value != null)
+				{
+                    item.Value.position = item.Key.position;
+                    item.Value.rotation = item.Key.rotation;
+                }         
+                if (!item.Key.CompareTag("yansitici") && !item.Key.CompareTag("engel")) item.Value.localScale = item.Key.parent.localScale;
             }
         }      
     }

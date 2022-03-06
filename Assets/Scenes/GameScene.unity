@@ -1085,10 +1085,10 @@ MonoBehaviour:
   tempLevelNo: 0
   totalLevelNo: 0
   levels:
-  - {fileID: 2326151854888573912, guid: 84585b010e6233644a243b378b7aad18, type: 3}
   - {fileID: 2326151854888573912, guid: ab3fdb45381358a42bbb5b36e3904ecb, type: 3}
+  - {fileID: 2326151854888573912, guid: 84585b010e6233644a243b378b7aad18, type: 3}
   DuvarParent: {fileID: 680819996}
-  enemyCountsForLevel: 0100000002000000
+  enemyCountsForLevel: 0200000001000000
 --- !u!1 &664173345876672193
 GameObject:
   m_ObjectHideFlags: 0
@@ -4336,6 +4336,18 @@ PrefabInstance:
       propertyPath: _obstaclesParent
       value: 
       objectReference: {fileID: 680819997}
+    - target: {fileID: 6258662520698522913, guid: 1d237078d76f8574e80d27d43be879ab, type: 3}
+      propertyPath: redMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 1fd1f09cd966ff94eb6455c5aa18bc51, type: 2}
+    - target: {fileID: 6258662520698522913, guid: 1d237078d76f8574e80d27d43be879ab, type: 3}
+      propertyPath: greenMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 4d32f10cb3f9f1743b43213495aff847, type: 2}
+    - target: {fileID: 6258662520698522915, guid: 1d237078d76f8574e80d27d43be879ab, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1fd1f09cd966ff94eb6455c5aa18bc51, type: 2}
     - target: {fileID: 7750640571828398256, guid: 1d237078d76f8574e80d27d43be879ab, type: 3}
       propertyPath: m_RootOrder
       value: 0

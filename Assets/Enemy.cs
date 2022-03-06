@@ -6,11 +6,15 @@ public class Enemy : MonoBehaviour
 {
 	private void OnTriggerEnter(Collider other)
 	{
-		if (other.CompareTag("Ball")) 
+		if (other.CompareTag("Ball") && !other.GetComponent<Ball>()._isGhost) 
 		{
-			Debug.Log("yandýmanam..");
 			GetComponentInChildren<Animator>().SetTrigger("die");
 			PlayerController.instance.IncreaseMovementNo();
+
+			foreach (GameObject obj in Projection.instance._simulationScene.GetRootGameObjects())
+			{
+				if (Vector3.Distance(obj.transform.position , other.transform.position) <= 2f ) Destroy(obj);
+			}
 		}
 		
 	}
