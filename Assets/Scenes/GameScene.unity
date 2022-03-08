@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.4788496, g: 0.80017924, b: 0.8994595, a: 1}
+  m_IndirectSpecularColor: {r: 0.47698158, g: 0.7989754, b: 0.8985044, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1993,7 +1993,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2037673476680140947
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4041,7 +4041,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &2070661309882696310
 GameObject:
   m_ObjectHideFlags: 0
@@ -4336,6 +4336,10 @@ PrefabInstance:
       propertyPath: _obstaclesParent
       value: 
       objectReference: {fileID: 680819997}
+    - target: {fileID: 6258662520698522913, guid: 1d237078d76f8574e80d27d43be879ab, type: 3}
+      propertyPath: _force
+      value: 1000
+      objectReference: {fileID: 0}
     - target: {fileID: 6258662520698522913, guid: 1d237078d76f8574e80d27d43be879ab, type: 3}
       propertyPath: redMaterial
       value: 

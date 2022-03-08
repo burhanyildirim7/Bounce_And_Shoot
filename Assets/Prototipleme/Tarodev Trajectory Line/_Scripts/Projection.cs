@@ -78,7 +78,8 @@ public class Projection : MonoBehaviour {
                     item.Value.position = item.Key.position;
                     item.Value.rotation = item.Key.rotation;
                 }         
-                if (!item.Key.CompareTag("yansitici") && !item.Key.CompareTag("engel")) item.Value.localScale = item.Key.parent.localScale;
+                if (!item.Key.CompareTag("yansitici") && !item.Key.CompareTag("engel") && !item.Key.CompareTag("yansitmayan")) item.Value.localScale = item.Key.parent.localScale;
+                //if (!item.Key.CompareTag("yansitici") && !item.Key.CompareTag("engel")) item.Value.localScale = item.Key.parent.localScale;
             }
         }      
     }
@@ -93,7 +94,8 @@ public class Projection : MonoBehaviour {
 
         for (var i = 0; i < _maxPhysicsFrameIterations; i++) {
             _physicsScene.Simulate(Time.fixedDeltaTime);
-            _line.SetPosition(i, ghostObj.transform.position);
+            if (!ghostObj.transform.CompareTag("etkisiz")) _line.SetPosition(i, ghostObj.transform.position);
+            else _line.SetPosition(i, _line.GetPosition(i-1));
         }
 
         Destroy(ghostObj.gameObject);

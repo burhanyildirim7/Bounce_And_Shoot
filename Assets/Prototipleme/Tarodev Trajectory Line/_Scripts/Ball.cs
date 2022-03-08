@@ -18,8 +18,12 @@ public class Ball : MonoBehaviour {
     }
 
     public void OnCollisionEnter(Collision col) {
-        if (_isGhost ) {
-
+        if (_isGhost) {
+           
+            if (col.transform.CompareTag("yansitmayan")) {
+                transform.tag = "etkisiz";
+                Debug.Log(transform.tag);
+            } 
             return; 
         }
         Instantiate(_poofPrefab, col.contacts[0].point, Quaternion.Euler(col.contacts[0].normal));

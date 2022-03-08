@@ -268,7 +268,7 @@ GameObject:
   - component: {fileID: 918232437136786942}
   m_Layer: 0
   m_Name: Cube (1)
-  m_TagString: Untagged
+  m_TagString: yansitmayan
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -365,7 +365,7 @@ GameObject:
   - component: {fileID: 8180824443795338113}
   m_Layer: 0
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: yansitmayan
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -18,7 +18,7 @@ public class Cannon : MonoBehaviour {
         if (instance == null) instance = this;
         else Destroy(this);
 	}
-	private void Update() {
+	private void FixedUpdate() {
         _projection.SimulateTrajectory(_ballPrefab, _ballSpawn.position, _ballSpawn.forward * _force);
     }
 

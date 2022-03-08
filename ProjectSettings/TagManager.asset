@@ -25,6 +25,8 @@ TagManager:
   - obstacle
   - yansitici
   - yan
+  - yansitmayan
+  - etkisiz
   layers:
   - Default
   - TransparentFX

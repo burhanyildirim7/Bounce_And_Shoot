@@ -196,12 +196,18 @@ public class PlayerController : MonoBehaviour
         firstMovePoint = GameObject.Find("FirstMovePoint").transform;
         secondMovePoint = GameObject.Find("SecondMovePoint").transform;
         GameObject[] obstacles = GameObject.FindGameObjectsWithTag("yansitici");
+        GameObject[] yansitmayan = GameObject.FindGameObjectsWithTag("yansitmayan");
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("engel");
 
 		foreach (GameObject obs in obstacles)
 		{
 			Projection.instance.AddGhostToScene(obs.transform);
 		}
+
+        foreach (GameObject obs in yansitmayan)
+        {
+            Projection.instance.AddGhostToScene(obs.transform);
+        }
 
         foreach (GameObject obs in enemies)
         {          
