@@ -26,6 +26,7 @@ public class Ball : MonoBehaviour {
             } 
             return; 
         }
+        if (col.transform.CompareTag("yansitmayan")) Destroy(gameObject);
         Instantiate(_poofPrefab, col.contacts[0].point, Quaternion.Euler(col.contacts[0].normal));
         if (col.transform.CompareTag("duvar"))
         {
