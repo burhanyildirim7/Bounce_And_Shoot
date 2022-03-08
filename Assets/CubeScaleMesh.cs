@@ -5,22 +5,23 @@ using UnityEngine;
 public class CubeScaleMesh : MonoBehaviour
 {
 	private Vector3 firstPoint, lastPoint;
-	int layerMask;
+	LayerMask layerMask;
 	public GameObject scalebleCube;
 
 	private void Start()
 	{
-		layerMask = LayerMask.GetMask("projectile");
+		layerMask = 1 << LayerMask.NameToLayer("projectile");
 	}
+
 	private void Update()
 	{
 		if (Input.GetMouseButtonDown(0))
 		{
 			var Ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 			RaycastHit hit;
-			if (Physics.Raycast(Ray, out hit, layerMask))
+			if (Physics.Raycast(Ray, out hit, 100f, layerMask))
 			{
-				if (hit.transform.CompareTag("plane"))
+				if (hit.transform.CompareTag("plane") && PlayerController.instance.isShootingTime)
 				{
 					firstPoint = lastPoint = hit.point;
 					Projection.instance.ActivateGhostDuvar();
@@ -36,9 +37,9 @@ public class CubeScaleMesh : MonoBehaviour
 			var Ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 			RaycastHit hit;
 
-			if (Physics.Raycast(Ray, out hit, layerMask))
+			if (Physics.Raycast(Ray, out hit,100f, layerMask))
 			{
-				if (hit.transform.CompareTag("plane") && scalebleCube != null)
+				if (hit.transform.CompareTag("plane") && scalebleCube != null && PlayerController.instance.isShootingTime)
 				{
 					lastPoint = hit.point;
 					Vector3 direction;
