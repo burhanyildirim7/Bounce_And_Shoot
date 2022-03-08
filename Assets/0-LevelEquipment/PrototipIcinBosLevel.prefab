@@ -107,7 +107,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2321800269746484304}
   - component: {fileID: 6290282115602371248}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: TargetPoint2
   m_TagString: targetpoint
   m_Icon: {fileID: 0}
@@ -464,6 +464,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4842857140688825628}
     m_Modifications:
+    - target: {fileID: 5700392132053130305, guid: b1264c79dc23c4044b332604b2b64259, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5700392133394937794, guid: b1264c79dc23c4044b332604b2b64259, type: 3}
       propertyPath: m_RootOrder
       value: 4

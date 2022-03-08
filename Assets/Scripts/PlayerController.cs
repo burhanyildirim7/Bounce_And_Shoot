@@ -190,7 +190,7 @@ public class PlayerController : MonoBehaviour
 
     public IEnumerator FindPoints()
 	{
-        yield return new WaitForSeconds(.5f);
+        yield return new WaitForSeconds(.1f);
         targetPoint1 = GameObject.Find("TargetPoint1").transform;
         if(enemyCount == 2)targetPoint2 = GameObject.Find("TargetPoint2").transform;
         firstMovePoint = GameObject.Find("FirstMovePoint").transform;
