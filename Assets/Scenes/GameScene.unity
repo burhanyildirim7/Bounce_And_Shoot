@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.4788496, g: 0.80017924, b: 0.8994595, a: 1}
+  m_IndirectSpecularColor: {r: 0.47698158, g: 0.7989754, b: 0.8985044, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1072,11 +1072,11 @@ MonoBehaviour:
   tempLevelNo: 0
   totalLevelNo: 0
   levels:
+  - {fileID: 959516153817744402, guid: 2390b7c98b6c1c94692b799b9d5743bc, type: 3}
   - {fileID: 1019203386730855136, guid: d8c0f32e8aae10848b8e6cd32037737b, type: 3}
   - {fileID: 7146627516253882877, guid: 61764edff4ba77a439663d2b80e91139, type: 3}
-  - {fileID: 959516153817744402, guid: 2390b7c98b6c1c94692b799b9d5743bc, type: 3}
   DuvarParent: {fileID: 680819996}
-  enemyCountsForLevel: 010000000300000007000000
+  enemyCountsForLevel: 070000000100000003000000
 --- !u!1 &664173345876672193
 GameObject:
   m_ObjectHideFlags: 0

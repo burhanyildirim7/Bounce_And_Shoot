@@ -21,7 +21,13 @@ public class Patlayici : MonoBehaviour
 			GetComponent<MeshRenderer>().enabled = false;
 			GetComponent<SphereCollider>().radius = colliderLastRadius;
 			Instantiate(explodePrefab,transform.position,Quaternion.identity);
+			StartCoroutine(DestroyMe());
 		}
+	}
 
+	IEnumerator DestroyMe()
+	{
+		yield return new WaitForSeconds(.2f);
+		Destroy(gameObject);
 	}
 }

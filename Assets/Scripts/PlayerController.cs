@@ -38,6 +38,7 @@ public class PlayerController : MonoBehaviour
 
 	private void FixedUpdate()
 	{
+        Debug.Log(enemyCount);
         if (isRun) 
         {
             if(movementNo == 1)
@@ -57,22 +58,28 @@ public class PlayerController : MonoBehaviour
         UIController.instance.SetBulletImages();
         enemyCount--;
 
-        if(movementNo == 2 || enemyCount == 0)
+        if( enemyCount == 0)
 		{
             WinEvents();
             return;
 		}
-		else
+		else if (movementNo != 2)
 		{
-            CameraMovement.instance.MoveCameraToTarget2();
+            StartCoroutine(AfterShooting());
 		}
         //weapon.SetActive(false);
-        weapon.GetComponent<LineRenderer>().enabled = false;
-        movementNo++;
-        isRun = true;
-        isShootingTime = false;
+        if (movementNo != 2) weapon.GetComponent<LineRenderer>().enabled = false; 
+        if(movementNo != 2)isShootingTime = false;
+        movementNo = 2;
+    }
+
+    IEnumerator AfterShooting()
+	{
+        yield return new WaitForSeconds(2.5f);
+        CameraMovement.instance.MoveCameraToTarget2();
         PlayerRunAnim();
-	}
+        isRun = true;
+    }
 
 	/// <summary>
 	/// Playerin collider olaylari.. collectible, engel veya finish noktasi icin. Burasi artirilabilir.

@@ -14,10 +14,10 @@ public class Enemy : MonoBehaviour
 			PlayerController.instance.IncreaseMovementNo();
 		
 			Debug.Log(transform.name);
-			//foreach (GameObject obj in Projection.instance._simulationScene.GetRootGameObjects())
-			//{
-			//	if (Vector3.Distance(obj.transform.position , other.transform.position) <= 2f ) Destroy(obj);
-			//}
+			foreach (GameObject obj in Projection.instance._simulationScene.GetRootGameObjects())
+			{
+				if (Vector3.Distance(obj.transform.position, other.transform.position) <= 2f) Destroy(obj);
+			}
 		}
 		else if (other.CompareTag("tnt"))
 		{
@@ -26,27 +26,26 @@ public class Enemy : MonoBehaviour
 			
 			PlayerController.instance.IncreaseMovementNo();
 
-			//foreach (GameObject obj in Projection.instance._simulationScene.GetRootGameObjects())
-			//{
-			//	if (Vector3.Distance(obj.transform.position, other.transform.position) <= 2f) Destroy(obj);
-			//}
+			foreach (GameObject obj in Projection.instance._simulationScene.GetRootGameObjects())
+			{
+				if (Vector3.Distance(obj.transform.position, other.transform.position) <= 5f) Destroy(obj);
+			}
 		}
 		
 	}
 
-	//private void OnTriggerStay(Collider other)
-	//{
-	//	if (other.CompareTag("tnt"))
-	//	{
-	//		Debug.Log("aaaaa");
-	//		GetComponentInChildren<Animator>().SetTrigger("die");
-	//		GetComponent<Collider>().enabled = false;
-	//		PlayerController.instance.IncreaseMovementNo();
+	private void OnTriggerStay(Collider other)
+	{
+		if (other.CompareTag("tnt"))
+		{
+			GetComponentInChildren<Animator>().SetTrigger("die");
+			GetComponent<Collider>().enabled = false;
+			PlayerController.instance.IncreaseMovementNo();
 
-	//		foreach (GameObject obj in Projection.instance._simulationScene.GetRootGameObjects())
-	//		{
-	//			if (Vector3.Distance(obj.transform.position, other.transform.position) <= 2f) Destroy(obj);
-	//		}
-	//	}
-	//}
+			foreach (GameObject obj in Projection.instance._simulationScene.GetRootGameObjects())
+			{
+				if (Vector3.Distance(obj.transform.position, other.transform.position) <= 5f) Destroy(obj);
+			}
+		}
+	}
 }
