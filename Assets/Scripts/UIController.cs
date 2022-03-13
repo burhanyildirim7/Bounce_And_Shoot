@@ -129,6 +129,7 @@ public class UIController : MonoBehaviour
 		int sayac = 0;
 		while(sayac < GameController.instance.score)
 		{
+			Debug.Log(sayac);
 			sayac+=PlayerController.instance.collectibleDegeri;
 			if(sayac %2*PlayerController.instance.collectibleDegeri == 0)
 			{

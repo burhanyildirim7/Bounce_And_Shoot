@@ -28,6 +28,8 @@ TagManager:
   - yansitmayan
   - etkisiz
   - tnt
+  - cameratarget1
+  - cameratarget2
   layers:
   - Default
   - TransparentFX

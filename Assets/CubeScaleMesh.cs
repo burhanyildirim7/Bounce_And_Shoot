@@ -58,7 +58,7 @@ public class CubeScaleMesh : MonoBehaviour
 				}
 			}
 		}
-		if(Input.GetMouseButtonUp(0) && PlayerController.instance.isShootingTime)
+		if(Input.GetMouseButtonUp(0) && PlayerController.instance.isShootingTime && !PlayerController.instance.isGodMode)
 		{
 			PlayerController.instance.bulletCount--;
 			UIController.instance.SetBulletImages();

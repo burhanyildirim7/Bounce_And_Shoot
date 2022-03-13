@@ -26,7 +26,7 @@ public class Cannon : MonoBehaviour {
     public IEnumerator IEMakeRed(GameObject obj)
 	{
         yield return new WaitForSeconds(.3f);
-        obj.GetComponent<Collider>().enabled = true;
+        if(obj != null) obj.GetComponent<Collider>().enabled = true;
         GetComponent<LineRenderer>().material = redMaterial;
 	}
 

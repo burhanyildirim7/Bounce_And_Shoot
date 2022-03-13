@@ -1,27 +1,35 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class CameraMovement : MonoBehaviour
 {
-    
-    private GameObject Player;
+	#region SINGLETON
+	public static CameraMovement instance;
+	private void Awake()
+	{
+        if (instance == null) instance = this;
+        else Destroy(this);
+	}
+	#endregion
 
-    Vector3 aradakiFark;
+	private GameObject Player;
 
+	private void Start()
+	{
+		DOTween.Init();
+	}
 
-    void Start()
-    {
-        Player = GameObject.FindGameObjectWithTag("Player");
-        aradakiFark = transform.position - Player.transform.position;
-    }
+	public void MoveCameraToTarget1()
+	{
+		transform.DOMove(PlayerController.instance.cameraTarget1.position,.5f);
+	}
 
+	public void MoveCameraToTarget2()
+	{
+		transform.DOMove(PlayerController.instance.cameraTarget2.position, .5f);
+	}
 
-    void Update()
-    {
-
-        transform.position = Vector3.Lerp(transform.position, new Vector3(Player.transform.position.x, Player.transform.position.y + aradakiFark.y, Player.transform.position.z + aradakiFark.z), Time.deltaTime * 5f);
-
-    }
 
 }

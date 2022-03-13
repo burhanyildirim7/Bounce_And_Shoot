@@ -11,10 +11,11 @@ public class PlayerController : MonoBehaviour
     public int collectibleDegeri;
     public bool xVarMi = true;
     public bool collectibleVarMi = true;
+    public bool isGodMode = false;
     public GameObject weapon;
     public bool isRun,isShootingTime;
     public float playerSpeed = 10;
-     public Transform targetPoint1, targetPoint2, firstMovePoint, secondMovePoint;
+     public Transform targetPoint1, targetPoint2, firstMovePoint, secondMovePoint,cameraTarget1,cameraTarget2;
     private int shootNo = 0;
     public int movementNo = 1;
     public Animator PlayerAnimator;
@@ -60,6 +61,10 @@ public class PlayerController : MonoBehaviour
 		{
             WinEvents();
             return;
+		}
+		else
+		{
+            CameraMovement.instance.MoveCameraToTarget2();
 		}
         //weapon.SetActive(false);
         weapon.GetComponent<LineRenderer>().enabled = false;
@@ -146,14 +151,19 @@ public class PlayerController : MonoBehaviour
 
     public void WinEvents()
 	{
-        GameController.instance.ScoreCarp(bulletCount + 1);
-        Projection.instance.ClearForNewScene();
-        //weapon.SetActive(false);
-        weapon.GetComponent<LineRenderer>().enabled = false;
-        isRun = false;
-        isShootingTime = false;
-        PlayerWinAnim();
-        UIController.instance.ActivateWinScreen();
+		if (isShootingTime)
+		{
+            GameController.instance.ScoreCarp(bulletCount + 1);
+            Projection.instance.ClearForNewScene();
+            //weapon.SetActive(false);
+            weapon.GetComponent<LineRenderer>().enabled = false;
+            isRun = false;
+            isShootingTime = false;
+            PlayerWinAnim();
+            UIController.instance.ActivateWinScreen();
+            Projection.instance._spawnedObjects.Clear();
+        }
+      
     }
 
     public IEnumerator CheckForLoose()
@@ -171,7 +181,8 @@ public class PlayerController : MonoBehaviour
         isRun = false;
         UIController.instance.ActivateLooseScreen();
         Destroy(GameObject.Find("Simulation"));
-	}
+        Projection.instance._spawnedObjects.Clear();
+    }
 
     void ShootingTime()
 	{
@@ -192,7 +203,9 @@ public class PlayerController : MonoBehaviour
 	{
         yield return new WaitForSeconds(.1f);
         targetPoint1 = GameObject.Find("TargetPoint1").transform;
-        if(enemyCount == 2)targetPoint2 = GameObject.Find("TargetPoint2").transform;
+        if(enemyCount >= 2)targetPoint2 = GameObject.Find("TargetPoint2").transform;
+        cameraTarget1 = GameObject.Find("CameraTarget1").transform;
+        if (enemyCount >= 2) cameraTarget2 = GameObject.Find("CameraTarget2").transform;
         firstMovePoint = GameObject.Find("FirstMovePoint").transform;
         secondMovePoint = GameObject.Find("SecondMovePoint").transform;
         GameObject[] obstacles = GameObject.FindGameObjectsWithTag("yansitici");
@@ -216,6 +229,7 @@ public class PlayerController : MonoBehaviour
 
         GameObject duvar = GameObject.Find("Duvar");
         Projection.instance.AddGhostToScene(duvar.transform);
+        CameraMovement.instance.MoveCameraToTarget1();
 		//if(totalLevelNo > 1)Projection.instance.AddMeshCubeToScene();
 		//if (LevelController.instance.totalLevelNo > 1) Projection.instance.LoadPhysicScene();
     }
