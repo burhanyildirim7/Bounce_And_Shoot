@@ -8,40 +8,45 @@ public class Enemy : MonoBehaviour
 	{
 		if (other.CompareTag("Ball") && !other.GetComponent<Ball>()._isGhost) 
 		{
+			Destroy(GetComponent<Collider>());
+			//GetComponent<Collider>().enabled = false;
 			GetComponentInChildren<Animator>().SetTrigger("die");
 			PlayerController.instance.IncreaseMovementNo();
-
-			foreach (GameObject obj in Projection.instance._simulationScene.GetRootGameObjects())
-			{
-				if (Vector3.Distance(obj.transform.position , other.transform.position) <= 2f ) Destroy(obj);
-			}
+		
+			Debug.Log(transform.name);
+			//foreach (GameObject obj in Projection.instance._simulationScene.GetRootGameObjects())
+			//{
+			//	if (Vector3.Distance(obj.transform.position , other.transform.position) <= 2f ) Destroy(obj);
+			//}
 		}
 		else if (other.CompareTag("tnt"))
 		{
-			Debug.Log("patladýý");
+			GetComponent<Collider>().enabled = false;
 			GetComponentInChildren<Animator>().SetTrigger("die");
+			
 			PlayerController.instance.IncreaseMovementNo();
 
-			foreach (GameObject obj in Projection.instance._simulationScene.GetRootGameObjects())
-			{
-				if (Vector3.Distance(obj.transform.position, other.transform.position) <= 2f) Destroy(obj);
-			}
+			//foreach (GameObject obj in Projection.instance._simulationScene.GetRootGameObjects())
+			//{
+			//	if (Vector3.Distance(obj.transform.position, other.transform.position) <= 2f) Destroy(obj);
+			//}
 		}
 		
 	}
 
-	private void OnTriggerStay(Collider other)
-	{
-		if (other.CompareTag("tnt"))
-		{
-			Debug.Log("patladýý");
-			GetComponentInChildren<Animator>().SetTrigger("die");
-			PlayerController.instance.IncreaseMovementNo();
+	//private void OnTriggerStay(Collider other)
+	//{
+	//	if (other.CompareTag("tnt"))
+	//	{
+	//		Debug.Log("aaaaa");
+	//		GetComponentInChildren<Animator>().SetTrigger("die");
+	//		GetComponent<Collider>().enabled = false;
+	//		PlayerController.instance.IncreaseMovementNo();
 
-			foreach (GameObject obj in Projection.instance._simulationScene.GetRootGameObjects())
-			{
-				if (Vector3.Distance(obj.transform.position, other.transform.position) <= 2f) Destroy(obj);
-			}
-		}
-	}
+	//		foreach (GameObject obj in Projection.instance._simulationScene.GetRootGameObjects())
+	//		{
+	//			if (Vector3.Distance(obj.transform.position, other.transform.position) <= 2f) Destroy(obj);
+	//		}
+	//	}
+	//}
 }

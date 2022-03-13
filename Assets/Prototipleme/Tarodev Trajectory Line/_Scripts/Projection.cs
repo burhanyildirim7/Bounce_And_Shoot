@@ -41,7 +41,15 @@ public class Projection : MonoBehaviour {
 	{
         var ghostObj2 = Instantiate(obj2.gameObject, obj2.position, obj2.rotation);
 		ghostObj2.GetComponentInChildren<Renderer>().enabled = false;
-        if (ghostObj2.CompareTag("engel")) ghostObj2.transform.GetChild(0).GetComponentInChildren<Renderer>().enabled = false;
+        if (ghostObj2.CompareTag("engel"))
+        {
+
+            Renderer[] renderers = ghostObj2.transform.GetChild(0).GetComponentsInChildren<Renderer>();
+            foreach (Renderer r in renderers)
+                r.enabled = false;
+            //ghostObj2.transform.GetChild(0).GetComponentInChildren<Renderer>().enabled = false;
+            Destroy(ghostObj2.GetComponent<Enemy>());
+        }
         ghostObj2.GetComponent<Collider>().enabled = true;
 		SceneManager.MoveGameObjectToScene(ghostObj2, _simulationScene);
 		if (!ghostObj2.isStatic) _spawnedObjects.Add(obj2, ghostObj2.transform);

@@ -22,7 +22,6 @@ public class Ball : MonoBehaviour {
            
             if (col.transform.CompareTag("yansitmayan")) {
                 transform.tag = "etkisiz";
-                Debug.Log(transform.tag);
             } 
             return; 
         }

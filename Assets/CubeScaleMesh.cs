@@ -4,6 +4,14 @@ using UnityEngine;
 
 public class CubeScaleMesh : MonoBehaviour
 {
+	#region SINGLETON
+	public static CubeScaleMesh instance;
+	private void Awake()
+	{
+		if (instance == null) instance = this;
+		else Destroy(this);
+	}
+	#endregion
 	private Vector3 firstPoint, lastPoint;
 	LayerMask layerMask;
 	public GameObject scalebleCube;

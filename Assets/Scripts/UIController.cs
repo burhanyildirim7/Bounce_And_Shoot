@@ -129,7 +129,6 @@ public class UIController : MonoBehaviour
 		int sayac = 0;
 		while(sayac < GameController.instance.score)
 		{
-			Debug.Log(sayac);
 			sayac+=PlayerController.instance.collectibleDegeri;
 			if(sayac %2*PlayerController.instance.collectibleDegeri == 0)
 			{
@@ -180,7 +179,7 @@ public class UIController : MonoBehaviour
 				StartCoroutine(StartScreenCoinsDissolve(coin));
 			}			
 		}
-		Instantiate(scoreEffect, new Vector3(1.34f,5.43F,-1.15F), Quaternion.identity);
+		Instantiate(scoreEffect, new Vector3(1f,12.9F,5.1F), Quaternion.identity);
 		ScoreTextAnim.SetTrigger("score");
 		startScreenCoinImage.SetActive(false);
 		startScreenCoinImage.transform.localPosition = new Vector3(0,-446,0);

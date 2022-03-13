@@ -162,6 +162,7 @@ public class PlayerController : MonoBehaviour
             PlayerWinAnim();
             UIController.instance.ActivateWinScreen();
             Projection.instance._spawnedObjects.Clear();
+            CubeScaleMesh.instance.scalebleCube.transform.position = new(0, 20, 0);
         }
       
     }
@@ -179,9 +180,11 @@ public class PlayerController : MonoBehaviour
         //weapon.SetActive(false);
         weapon.GetComponent<LineRenderer>().enabled = false;
         isRun = false;
+        isShootingTime = false;
         UIController.instance.ActivateLooseScreen();
         Destroy(GameObject.Find("Simulation"));
         Projection.instance._spawnedObjects.Clear();
+        CubeScaleMesh.instance.scalebleCube.transform.position = new(0, 20, 0);
     }
 
     void ShootingTime()
