@@ -12,8 +12,7 @@ public class Enemy : MonoBehaviour
 			//GetComponent<Collider>().enabled = false;
 			GetComponentInChildren<Animator>().SetTrigger("die");
 			PlayerController.instance.IncreaseMovementNo();
-		
-			Debug.Log(transform.name);
+
 			foreach (GameObject obj in Projection.instance._simulationScene.GetRootGameObjects())
 			{
 				if (Vector3.Distance(obj.transform.position, other.transform.position) <= 2f) Destroy(obj);

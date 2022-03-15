@@ -50,6 +50,11 @@ public class Projection : MonoBehaviour {
             //ghostObj2.transform.GetChild(0).GetComponentInChildren<Renderer>().enabled = false;
             Destroy(ghostObj2.GetComponent<Enemy>());
         }
+		if (ghostObj2.CompareTag("tnt"))
+		{
+            ghostObj2.transform.GetChild(0).GetComponent<Renderer>().enabled = false;
+            ghostObj2.transform.GetChild(1).GetComponent<Renderer>().enabled = false;
+		}
         ghostObj2.GetComponent<Collider>().enabled = true;
 		SceneManager.MoveGameObjectToScene(ghostObj2, _simulationScene);
 		if (!ghostObj2.isStatic) _spawnedObjects.Add(obj2, ghostObj2.transform);
@@ -85,8 +90,10 @@ public class Projection : MonoBehaviour {
 				{
                     item.Value.position = item.Key.position;
                     item.Value.rotation = item.Key.rotation;
+                    if (!item.Key.CompareTag("yansitici") && !item.Key.CompareTag("engel") && !item.Key.CompareTag("yansitmayan") && !item.Key.CompareTag("tnt") && !item.Key.CompareTag("engel") ) item.Value.localScale = item.Key.parent.localScale;
                 }         
-                if (!item.Key.CompareTag("yansitici") && !item.Key.CompareTag("engel") && !item.Key.CompareTag("yansitmayan")) item.Value.localScale = item.Key.parent.localScale;
+               
+                //if (item.Value != null && item.Key != null) item.Value.localScale = item.Key.parent.localScale;
                 //if (!item.Key.CompareTag("yansitici") && !item.Key.CompareTag("engel")) item.Value.localScale = item.Key.parent.localScale;
             }
         }      

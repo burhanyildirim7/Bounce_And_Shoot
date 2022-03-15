@@ -42,6 +42,19 @@ public class Ball : MonoBehaviour {
             other.GetComponent<Collider>().enabled = false;
             Cannon.instance.MakeGreen(other.gameObject);
 		}
+		if (other.CompareTag("tnt"))
+		{
+            foreach (var item in Projection.instance._spawnedObjects)
+            {
+                if (item.Value == other.transform)
+                {
+                    item.Key.GetComponent<Animator>().SetTrigger("tilt");
+                }
+
+                //if (item.Value != null && item.Key != null) item.Value.localScale = item.Key.parent.localScale;
+                //if (!item.Key.CompareTag("yansitici") && !item.Key.CompareTag("engel")) item.Value.localScale = item.Key.parent.localScale;
+            }
+        }
     }
 
 

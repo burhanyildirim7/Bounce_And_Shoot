@@ -38,7 +38,6 @@ public class PlayerController : MonoBehaviour
 
 	private void FixedUpdate()
 	{
-        Debug.Log(enemyCount);
         if (isRun) 
         {
             if(movementNo == 1)
@@ -53,9 +52,7 @@ public class PlayerController : MonoBehaviour
 
     public void IncreaseMovementNo()
 	{
-        GameController.instance.SetScore(50);
-        bulletCount++;
-        UIController.instance.SetBulletImages();
+      
         enemyCount--;
 
         if( enemyCount == 0)
@@ -70,12 +67,20 @@ public class PlayerController : MonoBehaviour
         //weapon.SetActive(false);
         if (movementNo != 2) weapon.GetComponent<LineRenderer>().enabled = false; 
         if(movementNo != 2)isShootingTime = false;
+        GameController.instance.SetScore(50);
         movementNo = 2;
     }
+
+    public void IncreaseBulletCount()
+	{
+
+	}
 
     IEnumerator AfterShooting()
 	{
         yield return new WaitForSeconds(2.5f);
+        bulletCount++;
+        UIController.instance.SetBulletImages();
         CameraMovement.instance.MoveCameraToTarget2();
         PlayerRunAnim();
         isRun = true;
@@ -121,12 +126,14 @@ public class PlayerController : MonoBehaviour
 		{
             Destroy(other.gameObject);
             shootNo = 1;
+            transform.LookAt(targetPoint1,Vector3.up);
             ShootingTime();
 		}
         else if (other.CompareTag("secondmovepoint") && isRun)
         {
             Destroy(other.gameObject);
             shootNo = 2;
+            transform.LookAt(targetPoint2, Vector3.up);
             ShootingTime();
             
         }
@@ -221,13 +228,20 @@ public class PlayerController : MonoBehaviour
         GameObject[] obstacles = GameObject.FindGameObjectsWithTag("yansitici");
         GameObject[] yansitmayan = GameObject.FindGameObjectsWithTag("yansitmayan");
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("engel");
+        GameObject[] tnts = GameObject.FindGameObjectsWithTag("tnt");
+
 
 		foreach (GameObject obs in obstacles)
 		{
 			Projection.instance.AddGhostToScene(obs.transform);
 		}
 
-        foreach (GameObject obs in yansitmayan)
+		foreach (GameObject obs in tnts)
+		{
+			Projection.instance.AddGhostToScene(obs.transform);
+		}
+
+		foreach (GameObject obs in yansitmayan)
         {
             Projection.instance.AddGhostToScene(obs.transform);
         }
@@ -236,6 +250,8 @@ public class PlayerController : MonoBehaviour
         {          
             Projection.instance.AddGhostToScene(obs.transform);
         }
+
+      
 
         GameObject duvar = GameObject.Find("Duvar");
         Projection.instance.AddGhostToScene(duvar.transform);

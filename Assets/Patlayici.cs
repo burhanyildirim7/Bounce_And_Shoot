@@ -16,7 +16,7 @@ public class Patlayici : MonoBehaviour
 	private void OnTriggerEnter(Collider other)
 	{
 
-		if (other.CompareTag("Ball"))
+		if (other.CompareTag("Ball") && !other.GetComponent<Ball>()._isGhost)
 		{
 			GetComponent<MeshRenderer>().enabled = false;
 			GetComponent<SphereCollider>().radius = colliderLastRadius;

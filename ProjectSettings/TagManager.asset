@@ -38,7 +38,7 @@ TagManager:
   - Water
   - UI
   - projectile
-  - 
+  - player
   - 
   - 
   - 
@@ -66,4 +66,10 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: projectile
+    uniqueID: 2001696939
+    locked: 0
+  - name: player
+    uniqueID: 2356433675
     locked: 0
