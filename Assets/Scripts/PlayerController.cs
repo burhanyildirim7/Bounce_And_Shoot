@@ -54,8 +54,8 @@ public class PlayerController : MonoBehaviour
 	{
       
         enemyCount--;
-
-        if( enemyCount == 0)
+        bulletCount++;
+        if ( enemyCount == 0)
 		{
             WinEvents();
             return;
@@ -79,7 +79,7 @@ public class PlayerController : MonoBehaviour
     IEnumerator AfterShooting()
 	{
         yield return new WaitForSeconds(2.5f);
-        bulletCount++;
+
         UIController.instance.SetBulletImages();
         CameraMovement.instance.MoveCameraToTarget2();
         PlayerRunAnim();
