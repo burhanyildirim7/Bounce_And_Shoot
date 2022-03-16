@@ -45,7 +45,7 @@ public class Cannon : MonoBehaviour {
 	{
         var spawned = Instantiate(_ballPrefab, _ballSpawn.position, _ballSpawn.rotation);
         spawned.Init(_ballSpawn.forward * _force, false);
-
+        MoreMountains.NiceVibrations.MMVibrationManager.Haptic(MoreMountains.NiceVibrations.HapticTypes.MediumImpact);
     }
 
     #endregion

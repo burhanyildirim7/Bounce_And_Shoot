@@ -18,6 +18,7 @@ public class Patlayici : MonoBehaviour
 
 		if (other.CompareTag("Ball") && !other.GetComponent<Ball>()._isGhost)
 		{
+			MoreMountains.NiceVibrations.MMVibrationManager.Haptic(MoreMountains.NiceVibrations.HapticTypes.MediumImpact);
 			GetComponent<MeshRenderer>().enabled = false;
 			GetComponent<SphereCollider>().radius = colliderLastRadius;
 			Instantiate(explodePrefab,transform.position,Quaternion.identity);

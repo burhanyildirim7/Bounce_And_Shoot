@@ -29,6 +29,7 @@ public class Ball : MonoBehaviour {
         Instantiate(_poofPrefab, col.contacts[0].point, Quaternion.Euler(col.contacts[0].normal));
         if (col.transform.CompareTag("duvar"))
         {
+            MoreMountains.NiceVibrations.MMVibrationManager.Haptic(MoreMountains.NiceVibrations.HapticTypes.MediumImpact);
             col.transform.GetComponentInChildren<MeshRenderer>().enabled = false;
             col.transform.GetComponentInChildren<Collider>().enabled = false;
             Projection.instance.DeactivateGhostDuvar();
