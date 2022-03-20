@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour
     public Animator PlayerAnimator;
     public int bulletCount = 3;
     public int enemyCount;
+    public GameObject onBoarding;
 
 
     private void Awake()
@@ -67,7 +68,7 @@ public class PlayerController : MonoBehaviour
         //weapon.SetActive(false);
         if (movementNo != 2) weapon.GetComponent<LineRenderer>().enabled = false; 
         if(movementNo != 2)isShootingTime = false;
-        GameController.instance.SetScore(50);
+
         movementNo = 2;
     }
 
@@ -124,6 +125,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (other.CompareTag("firstmovepoint") && isRun )
 		{
+           
             Destroy(other.gameObject);
             shootNo = 1;
             transform.LookAt(targetPoint1,Vector3.up);
@@ -203,7 +205,8 @@ public class PlayerController : MonoBehaviour
 
     void ShootingTime()
 	{
-      
+        Debug.Log(LevelController.instance.totalLevelNo);
+        if (LevelController.instance.totalLevelNo < 2) onBoarding.SetActive(true);
         //weapon.SetActive(true);
         weapon.GetComponent<LineRenderer>().enabled = true;
         isRun = false;

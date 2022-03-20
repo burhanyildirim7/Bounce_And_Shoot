@@ -13,6 +13,7 @@ public class Enemy : MonoBehaviour
 			GetComponentInChildren<Animator>().SetTrigger("die");
 			PlayerController.instance.IncreaseMovementNo();
 			MoreMountains.NiceVibrations.MMVibrationManager.Haptic(MoreMountains.NiceVibrations.HapticTypes.MediumImpact);
+			GameController.instance.SetScore(50);
 			foreach (GameObject obj in Projection.instance._simulationScene.GetRootGameObjects())
 			{
 				if (Vector3.Distance(obj.transform.position, other.transform.position) <= 2f) Destroy(obj);

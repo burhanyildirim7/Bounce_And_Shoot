@@ -31,6 +31,7 @@ public class CubeScaleMesh : MonoBehaviour
 			{
 				if (hit.transform.CompareTag("plane") && PlayerController.instance.isShootingTime)
 				{
+					PlayerController.instance.onBoarding.SetActive(false);
 					firstPoint = lastPoint = hit.point;
 					Projection.instance.ActivateGhostDuvar();
 					scalebleCube.GetComponentInChildren<MeshRenderer>().enabled = true;
